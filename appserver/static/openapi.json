@@ -1,0 +1,853 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TA-ipa",
+        "version": "1.0.0",
+        "description": "IPA",
+        "contact": {
+            "name": "Rafael Ledezma"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://{domain}:{port}/servicesNS/-/TA-ipa",
+            "variables": {
+                "domain": {
+                    "default": "localhost"
+                },
+                "port": {
+                    "default": "8089"
+                }
+            },
+            "description": "Access via management interface"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "account": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password"
+                    }
+                }
+            },
+            "account_without_name": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password"
+                    }
+                }
+            },
+            "logging": {
+                "type": "object",
+                "properties": {
+                    "loglevel": {
+                        "type": "string",
+                        "enum": [
+                            "DEBUG",
+                            "INFO",
+                            "WARNING",
+                            "ERROR",
+                            "CRITICAL"
+                        ]
+                    }
+                }
+            },
+            "logging_without_name": {
+                "type": "object",
+                "properties": {
+                    "loglevel": {
+                        "type": "string",
+                        "enum": [
+                            "DEBUG",
+                            "INFO",
+                            "WARNING",
+                            "ERROR",
+                            "CRITICAL"
+                        ]
+                    }
+                }
+            },
+            "additional_parameters": {
+                "type": "object",
+                "properties": {
+                    "base_url": {
+                        "type": "string"
+                    },
+                    "verify_ssl": {
+                        "type": "string"
+                    },
+                    "ca_cert_path": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additional_parameters_without_name": {
+                "type": "object",
+                "properties": {
+                    "base_url": {
+                        "type": "string"
+                    },
+                    "verify_ssl": {
+                        "type": "string"
+                    },
+                    "ca_cert_path": {
+                        "type": "string"
+                    }
+                }
+            },
+            "idm": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "interval": {
+                        "type": "string"
+                    },
+                    "index": {
+                        "type": "string"
+                    },
+                    "object_type": {
+                        "type": "string",
+                        "enum": [
+                            "users",
+                            "hosts",
+                            "dns",
+                            "certs",
+                            "groups",
+                            "hbac",
+                            "rbac"
+                        ]
+                    },
+                    "global_account": {
+                        "type": "string"
+                    },
+                    "disabled": {
+                        "type": "string",
+                        "enum": [
+                            "False",
+                            "True"
+                        ]
+                    }
+                }
+            },
+            "idm_without_name": {
+                "type": "object",
+                "properties": {
+                    "interval": {
+                        "type": "string"
+                    },
+                    "index": {
+                        "type": "string"
+                    },
+                    "object_type": {
+                        "type": "string",
+                        "enum": [
+                            "users",
+                            "hosts",
+                            "dns",
+                            "certs",
+                            "groups",
+                            "hbac",
+                            "rbac"
+                        ]
+                    },
+                    "global_account": {
+                        "type": "string"
+                    },
+                    "disabled": {
+                        "type": "string",
+                        "enum": [
+                            "False",
+                            "True"
+                        ]
+                    }
+                }
+            },
+            "idm_without_disabled": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "interval": {
+                        "type": "string"
+                    },
+                    "index": {
+                        "type": "string"
+                    },
+                    "object_type": {
+                        "type": "string",
+                        "enum": [
+                            "users",
+                            "hosts",
+                            "dns",
+                            "certs",
+                            "groups",
+                            "hbac",
+                            "rbac"
+                        ]
+                    },
+                    "global_account": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        }
+    },
+    "paths": {
+        "/TA_ipa_account": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get list of items for account",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/account_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Get list of items for account",
+                "deprecated": false
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Create item in account",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/account_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Create item in account",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/account"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "deprecated": false
+            },
+            "parameters": [
+                {
+                    "name": "output_mode",
+                    "in": "query",
+                    "required": true,
+                    "description": "Output mode",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ],
+                        "default": "json"
+                    }
+                }
+            ]
+        },
+        "/TA_ipa_account/{name}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get account item details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/account_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Get account item details",
+                "deprecated": false
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Update account item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/account_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Update account item",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/account_without_name"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "deprecated": false
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Delete account item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/account_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Delete account item",
+                "deprecated": false
+            },
+            "parameters": [
+                {
+                    "name": "name",
+                    "in": "path",
+                    "required": true,
+                    "description": "The name of the item to operate on",
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "output_mode",
+                    "in": "query",
+                    "required": true,
+                    "description": "Output mode",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ],
+                        "default": "json"
+                    }
+                }
+            ]
+        },
+        "/TA_ipa_settings/logging": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get list of items for logging",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/logging_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Get list of items for logging",
+                "deprecated": false
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Create item in logging",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/logging_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Create item in logging",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/logging"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "deprecated": false
+            },
+            "parameters": [
+                {
+                    "name": "output_mode",
+                    "in": "query",
+                    "required": true,
+                    "description": "Output mode",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ],
+                        "default": "json"
+                    }
+                }
+            ]
+        },
+        "/TA_ipa_settings/additional_parameters": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get list of items for additional_parameters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/additional_parameters_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Get list of items for additional_parameters",
+                "deprecated": false
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Create item in additional_parameters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/additional_parameters_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Create item in additional_parameters",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/additional_parameters"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "deprecated": false
+            },
+            "parameters": [
+                {
+                    "name": "output_mode",
+                    "in": "query",
+                    "required": true,
+                    "description": "Output mode",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ],
+                        "default": "json"
+                    }
+                }
+            ]
+        },
+        "/TA_ipa_idm": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get list of items for idm",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/idm_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Get list of items for idm",
+                "deprecated": false
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Create item in idm",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/idm_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Create item in idm",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/idm_without_disabled"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "deprecated": false
+            },
+            "parameters": [
+                {
+                    "name": "output_mode",
+                    "in": "query",
+                    "required": true,
+                    "description": "Output mode",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ],
+                        "default": "json"
+                    }
+                }
+            ]
+        },
+        "/TA_ipa_idm/{name}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get idm item details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/idm_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Get idm item details",
+                "deprecated": false
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Update idm item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/idm_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Update idm item",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/idm_without_name"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "deprecated": false
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Delete idm item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entry": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "$ref": "#/components/schemas/idm_without_name"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Delete idm item",
+                "deprecated": false
+            },
+            "parameters": [
+                {
+                    "name": "name",
+                    "in": "path",
+                    "required": true,
+                    "description": "The name of the item to operate on",
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "output_mode",
+                    "in": "query",
+                    "required": true,
+                    "description": "Output mode",
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ],
+                        "default": "json"
+                    }
+                }
+            ]
+        }
+    },
+    "security": [
+        {
+            "BasicAuth": []
+        }
+    ]
+}

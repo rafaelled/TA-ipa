@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "2.0.0",
+  "info": {
+    "title": "IPA",
+    "id": {
+      "group": null,
+      "name": "TA-ipa",
+      "version": "1.0.0"
+    },
+    "author": [
+      {
+        "name": "Rafael Ledezma",
+        "email": null,
+        "company": null
+      }
+    ],
+    "releaseDate": null,
+    "description": "Collects Users, Hosts, DNS zones/records, Certs, Groups, HBAC, and RBAC from Red Hat IdM/FreeIPA",
+    "classification": {
+      "intendedAudience": null,
+      "categories": [],
+      "developmentStatus": null
+    },
+    "commonInformationModels": null,
+    "license": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "privacyPolicy": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "releaseNotes": {
+      "name": null,
+      "text": null,
+      "uri": null
+    }
+  },
+  "dependencies": {
+  },
+  "tasks": [],
+  "inputGroups": {
+  },
+  "incompatibleApps": {
+  },
+  "platformRequirements": {
+    "splunk": {
+      "Enterprise": "*"
+    }
+  },
+  "supportedDeployments": [
+    "*"
+  ],
+  "targetWorkloads": [
+    "*"
+  ]
+}
