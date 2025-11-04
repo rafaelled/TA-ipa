@@ -1,4 +1,4 @@
+This Splunk add-on collects identity, access, and infrastructure metadata directly from Red Hat Identity Management (IdM) and FreeIPA environments. It provides real-time visibility into domain objects and security configurations, enabling identity auditing, security monitoring, and centralized insight into authentication infrastructure.
+
 This is an add-on powered by the Splunk Add-on Builder.
-# Binary File Declaration
-/opt/splunk/var/data/tabuilder/package/TA-ipa/bin/ta_ipa/aob_py3/yaml/_yaml.cpython-37m-x86_64-linux-gnu.so: this file does not require any source code
-/opt/splunk/var/data/tabuilder/package/TA-ipa/bin/ta_ipa/aob_py3/markupsafe/_speedups.cpython-37m-x86_64-linux-gnu.so: this file does not require any source code
+
